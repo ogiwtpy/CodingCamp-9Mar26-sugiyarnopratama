@@ -618,10 +618,14 @@ const TaskWidget = {
 
             const span = document.createElement('span');
             span.textContent = task.text;
-            span.addEventListener('click', () => {
+
+            const editBtn = document.createElement('button');
+            editBtn.textContent = 'Edit';
+            editBtn.className = 'edit-btn';
+            editBtn.addEventListener('click', () => {
                 const newText = prompt('Edit task:', task.text);
-                if (newText !== null) {
-                    this.editTask(task.id, newText);
+                if (newText !== null && newText.trim()) {
+                    this.editTask(task.id, newText.trim());
                 }
             });
 
@@ -632,6 +636,7 @@ const TaskWidget = {
 
             li.appendChild(checkbox);
             li.appendChild(span);
+            li.appendChild(editBtn);
             li.appendChild(deleteBtn);
             taskList.appendChild(li);
         });
