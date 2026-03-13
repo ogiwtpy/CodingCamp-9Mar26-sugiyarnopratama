@@ -3,7 +3,51 @@
 // Storage keys for Local Storage
 const STORAGE_KEYS = {
     TASKS: 'productivity-dashboard-tasks',
-    LINKS: 'productivity-dashboard-links'
+    LINKS: 'productivity-dashboard-links',
+    THEME: 'productivity-dashboard-theme'
+};
+
+// Theme Manager Module
+const ThemeManager = {
+    /**
+     * Initialize theme from storage or system preference
+     */
+    init() {
+        const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME);
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        
+        this.setTheme(theme);
+        
+        // Set up toggle button
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => this.toggleTheme());
+        }
+    },
+
+    /**
+     * Set theme
+     * @param {string} theme - 'light' or 'dark'
+     */
+    setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem(STORAGE_KEYS.THEME, theme);
+        
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (toggleBtn) {
+            toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+    },
+
+    /**
+     * Toggle between light and dark theme
+     */
+    toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+    }
 };
 
 // StorageManager Module
@@ -378,6 +422,7 @@ const TimerWidget = {
 // Manages task list with Local Storage persistence
 const TaskWidget = {
     tasks: [],
+    currentFilter: 'all', // 'all', 'active', 'completed'
 
     /**
      * Initialize the task widget
@@ -398,6 +443,41 @@ const TaskWidget = {
             });
         }
 
+        // Set up filter buttons
+        const sortAll = document.getElementById('sort-all');
+        const sortActive = document.getElementById('sort-active');
+        const sortCompleted = document.getElementById('sort-completed');
+
+        if (sortAll) {
+            sortAll.addEventListener('click', () => this.setFilter('all'));
+        }
+        if (sortActive) {
+            sortActive.addEventListener('click', () => this.setFilter('active'));
+        }
+        if (sortCompleted) {
+            sortCompleted.addEventListener('click', () => this.setFilter('completed'));
+        }
+
+        this.renderTasks();
+    },
+
+    /**
+     * Set task filter
+     * @param {string} filter - 'all', 'active', or 'completed'
+     */
+    setFilter(filter) {
+        this.currentFilter = filter;
+        
+        // Update button states
+        document.querySelectorAll('#task-controls button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        const activeBtn = document.getElementById(`sort-${filter}`);
+        if (activeBtn) {
+            activeBtn.classList.add('active');
+        }
+        
         this.renderTasks();
     },
 
@@ -417,12 +497,29 @@ const TaskWidget = {
     },
 
     /**
+     * Check if task already exists (prevent duplicates)
+     * @param {string} text - Task text to check
+     * @returns {boolean} True if duplicate exists
+     */
+    isDuplicate(text) {
+        return this.tasks.some(task => 
+            task.text.toLowerCase() === text.toLowerCase()
+        );
+    },
+
+    /**
      * Add a new task
      * @param {string} text - Task text
      */
     addTask(text) {
         if (!text || text.trim() === '') {
             return; // Silent rejection
+        }
+
+        // Check for duplicates
+        if (this.isDuplicate(text)) {
+            alert('This task already exists!');
+            return;
         }
 
         const task = {
@@ -457,6 +554,16 @@ const TaskWidget = {
     editTask(id, newText) {
         const task = this.tasks.find(t => t.id === id);
         if (task && newText.trim()) {
+            // Check if new text is duplicate (excluding current task)
+            const isDuplicate = this.tasks.some(t => 
+                t.id !== id && t.text.toLowerCase() === newText.toLowerCase()
+            );
+            
+            if (isDuplicate) {
+                alert('This task already exists!');
+                return;
+            }
+            
             task.text = newText.trim();
             this.saveTasks();
             this.renderTasks();
@@ -474,6 +581,21 @@ const TaskWidget = {
     },
 
     /**
+     * Get filtered tasks based on current filter
+     * @returns {Array} Filtered tasks
+     */
+    getFilteredTasks() {
+        switch (this.currentFilter) {
+            case 'active':
+                return this.tasks.filter(t => !t.completed);
+            case 'completed':
+                return this.tasks.filter(t => t.completed);
+            default:
+                return this.tasks;
+        }
+    },
+
+    /**
      * Render tasks to DOM
      */
     renderTasks() {
@@ -482,7 +604,9 @@ const TaskWidget = {
 
         taskList.innerHTML = '';
 
-        this.tasks.forEach(task => {
+        const filteredTasks = this.getFilteredTasks();
+
+        filteredTasks.forEach(task => {
             const li = document.createElement('li');
             li.className = task.completed ? 'completed' : '';
             li.dataset.id = task.id;
@@ -664,16 +788,11 @@ const App = {
                 console.error('Missing required DOM elements:', missingElements);
             }
             
-            // Initialize GreetingWidget
+            // Initialize all widgets
+            ThemeManager.init();
             GreetingWidget.init();
-            
-            // Initialize TimerWidget
             TimerWidget.init();
-            
-            // Initialize TaskWidget
             TaskWidget.init();
-            
-            // Initialize QuickLinksWidget
             QuickLinksWidget.init();
             
         } catch (error) {

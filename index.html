@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+
     <!-- Greeting Widget -->
     <section id="greeting">
         <div id="time"></div>
@@ -16,19 +19,24 @@
 
     <!-- Focus Timer Widget -->
     <section id="timer">
-        <h2>Focus Timer</h2>
+        <h2>⏱️ Focus Timer</h2>
         <div id="timer-display">25:00</div>
         <div id="timer-controls">
-            <button id="timer-start">Start</button>
-            <button id="timer-stop">Stop</button>
-            <button id="timer-reset">Reset</button>
+            <button id="timer-start">▶️ Start</button>
+            <button id="timer-stop">⏸️ Stop</button>
+            <button id="timer-reset">🔄 Reset</button>
         </div>
         <div id="timer-notification"></div>
     </section>
 
     <!-- Task List Widget -->
     <section id="tasks">
-        <h2>Tasks</h2>
+        <h2>✅ Tasks</h2>
+        <div id="task-controls">
+            <button id="sort-all" class="active">All</button>
+            <button id="sort-active">Active</button>
+            <button id="sort-completed">Completed</button>
+        </div>
         <form id="task-form">
             <input type="text" id="task-input" placeholder="Add a new task...">
             <button type="submit">Add</button>
@@ -38,7 +46,7 @@
 
     <!-- Quick Links Widget -->
     <section id="links">
-        <h2>Quick Links</h2>
+        <h2>🔗 Quick Links</h2>
         <form id="link-form">
             <input type="text" id="link-name" placeholder="Link name">
             <input type="url" id="link-url" placeholder="https://example.com">
