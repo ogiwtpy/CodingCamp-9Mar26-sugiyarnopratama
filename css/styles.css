@@ -53,6 +53,32 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Main Header */
+.main-header {
+    text-align: center;
+    padding: 30px 20px 20px;
+    margin-bottom: 30px;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px var(--shadow);
+    border-bottom: 3px solid var(--accent-blue);
+}
+
+.main-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.main-header .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin: 0;
+}
+
 /* Theme Toggle Button */
 #theme-toggle {
     position: fixed;
@@ -81,8 +107,8 @@ body {
 /* Greeting Widget - Prominent Display */
 #greeting {
     text-align: center;
-    padding: 40px 20px;
-    margin-bottom: 40px;
+    padding: 30px 20px;
+    margin-bottom: 30px;
     background: var(--bg-secondary);
     border-radius: 12px;
     box-shadow: 0 4px 12px var(--shadow);
@@ -502,6 +528,14 @@ section h2 {
 @media (max-width: 768px) {
     body {
         padding: 10px;
+    }
+
+    .main-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .main-header .subtitle {
+        font-size: 0.95rem;
     }
 
     #theme-toggle {
