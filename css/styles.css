@@ -1,0 +1,371 @@
+/* ===================================
+   Productivity Dashboard Styles
+   =================================== */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Greeting Widget - Prominent Display */
+#greeting {
+    text-align: center;
+    padding: 40px 20px;
+    margin-bottom: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#time {
+    font-size: 3rem;
+    font-weight: 300;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+#date {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+}
+
+#greeting-message {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #34495e;
+}
+
+/* Section Containers - Distinct Visual Separation */
+section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+}
+
+/* Focus Timer Widget */
+#timer {
+    text-align: center;
+}
+
+#timer-display {
+    font-size: 4rem;
+    font-weight: 300;
+    color: #2c3e50;
+    margin: 30px 0;
+    font-variant-numeric: tabular-nums;
+}
+
+#timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#timer-controls button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#timer-start {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+#timer-start:hover {
+    background-color: #229954;
+}
+
+#timer-stop {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+#timer-stop:hover {
+    background-color: #c0392b;
+}
+
+#timer-reset {
+    background-color: #95a5a6;
+    color: #fff;
+}
+
+#timer-reset:hover {
+    background-color: #7f8c8d;
+}
+
+#timer-notification {
+    font-size: 1.1rem;
+    color: #27ae60;
+    font-weight: 500;
+    min-height: 1.5rem;
+}
+
+/* Task List Widget */
+#task-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#task-input {
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ecf0f1;
+    border-radius: 6px;
+    transition: border-color 0.2s ease;
+}
+
+#task-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+#task-form button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#task-form button:hover {
+    background-color: #2980b9;
+}
+
+#task-list {
+    list-style: none;
+}
+
+#task-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid #3498db;
+    transition: background-color 0.2s ease;
+}
+
+#task-list li:hover {
+    background-color: #ecf0f1;
+}
+
+/* Completed Task Visual Indicator */
+#task-list li.completed {
+    border-left-color: #95a5a6;
+    background-color: #ecf0f1;
+    opacity: 0.7;
+}
+
+#task-list li.completed .task-text {
+    text-decoration: line-through;
+    color: #7f8c8d;
+}
+
+.task-text {
+    flex: 1;
+    font-size: 1rem;
+    color: #2c3e50;
+    cursor: pointer;
+    user-select: none;
+}
+
+.task-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.task-actions button {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.task-edit {
+    background-color: #f39c12;
+    color: #fff;
+}
+
+.task-edit:hover {
+    background-color: #e67e22;
+}
+
+.task-delete {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.task-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Quick Links Widget */
+#link-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#link-name,
+#link-url {
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ecf0f1;
+    border-radius: 6px;
+    transition: border-color 0.2s ease;
+}
+
+#link-name {
+    flex: 1;
+}
+
+#link-url {
+    flex: 2;
+}
+
+#link-name:focus,
+#link-url:focus {
+    outline: none;
+    border-color: #9b59b6;
+}
+
+#link-form button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #9b59b6;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#link-form button:hover {
+    background-color: #8e44ad;
+}
+
+#link-list {
+    list-style: none;
+}
+
+#link-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid #9b59b6;
+    transition: background-color 0.2s ease;
+}
+
+#link-list li:hover {
+    background-color: #ecf0f1;
+}
+
+.link-anchor {
+    flex: 1;
+    font-size: 1rem;
+    color: #2c3e50;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.link-anchor:hover {
+    color: #9b59b6;
+}
+
+.link-delete {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.link-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    #time {
+        font-size: 2rem;
+    }
+
+    #greeting-message {
+        font-size: 1.4rem;
+    }
+
+    #timer-display {
+        font-size: 3rem;
+    }
+
+    #timer-controls {
+        flex-direction: column;
+    }
+
+    #timer-controls button {
+        width: 100%;
+    }
+
+    #task-form,
+    #link-form {
+        flex-direction: column;
+    }
+
+    #link-name,
+    #link-url {
+        width: 100%;
+    }
+}
